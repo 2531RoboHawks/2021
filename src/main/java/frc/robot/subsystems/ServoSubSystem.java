@@ -12,7 +12,9 @@ public class ServoSubSystem extends SubsystemBase {
   Servo bottomServo = new Servo(5);
 
   /** Creates a new ServoSubSystem. */
-  public ServoSubSystem() {}
+  public ServoSubSystem() {
+    servoControl(0.5, 0);
+  }
 
   @Override
   public void periodic() {

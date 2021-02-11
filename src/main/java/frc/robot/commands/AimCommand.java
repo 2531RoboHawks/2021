@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import javax.naming.spi.DirStateFactory;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
@@ -21,30 +23,56 @@ public class AimCommand extends CommandBase {
 
   @Override
   public void execute() {
-    // double pressButton = RobotContainer.leftJoystick.getX();
-    double MARGIN = 3.0;
+    // if (!RobotContainer.limelight.hasValidTargets()) {
+    //   driveSubsystem.stop();
+    //   System.out.println("(Safety)");
+    //   return;
+    // }
 
     double tx = RobotContainer.limelight.getX();
     double ty = RobotContainer.limelight.getY();
-    double bottom = servoSubsystem.getBottomServoAngle();
-    double top = servoSubsystem.getTopServoAngle();
-    if (tx > MARGIN) {
-      bottom += 0.01;
-    } else if (tx < -MARGIN) {
-      bottom -= 0.01;
-    }
+    double ta = RobotContainer.limelight.getArea();
+    System.out.println(String.format("tx: %f ty: %f ta: %f", tx, ty, ta));
 
-    if (ty > MARGIN) {
-      top -= 0.01;
-    } else if (ty < -MARGIN) {
-      top += 0.01;
-    }
+    // FIXME: ta is often 0, unusable
+    // ty -= 15.0;
+    // ta -= 0.1;
+    ta *= -1;
 
-    if (top > 0.75) {
-      top = 0.75;
-    }
+    // double bottom = servoSubsystem.getBottomServoAngle();
+    // double top = servoSubsystem.getTopServoAngle();
+    // if (tx > MARGIN) {
+    //   bottom += 0.01;
+    // } else if (tx < -MARGIN) {
+    //   bottom -= 0.01;
+    // }
 
-    servoSubsystem.servoControl(bottom, top);
+    // if (ty > MARGIN) {
+    //   top -= 0.01;
+    // } else if (ty < -MARGIN) {
+    //   top += 0.01;
+    // }
+
+    // if (top > 0.75) {
+    //   top = 0.75;
+    // }
+
+    double turn = Math.pow(tx/30.0, 2) * Math.signum(tx);
+    // double distance = Math.pow(ty/30.0, 2) * Math.signum(ty);
+    double distance = Math.pow(ta, 2) * Math.signum(ta);
+    // double distance = 0;
+    // System.out.println(ta);
+    // if (ta < 0.2) {
+    //   distance = 0.5;
+    // } else if (ta > 0.3) {
+    //   distance = -0.5;
+    // } else {
+    //   distance = 0;
+    // }
+
+    // servoSubsystem.servoControl(bottom, top);
+    // driveSubsystem.turn(Math.pow(tx/30.0, 2) * Math.signum(tx));
+    driveSubsystem.motorControl(turn + distance, turn + distance, -turn + distance, -turn + distance);
   }
 
   @Override
