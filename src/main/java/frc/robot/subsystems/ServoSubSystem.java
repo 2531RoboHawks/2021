@@ -26,6 +26,14 @@ public class ServoSubSystem extends SubsystemBase {
     topServo.set(servo2);
   }
 
+  public void setTopServo(double value) {
+    topServo.set(value);
+  }
+
+  public void setBottomServo(double value) {
+    bottomServo.set(value);
+  }
+
   public double getTopServoAngle() {
     return topServo.get();
   }

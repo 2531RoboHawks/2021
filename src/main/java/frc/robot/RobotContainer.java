@@ -35,9 +35,6 @@ public class RobotContainer {
 
   public static Joystick leftJoystick = new Joystick(1);
   public static Joystick rightJoystick = new Joystick(0);
-  // public static Command aimCommand = new AimCommand(exampleSubsystem);
-
-
 
   public static Limelight limelight = new Limelight();
 
@@ -55,8 +52,8 @@ public class RobotContainer {
    * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-
-
+    //Attach a command to a button here. 
+    //TODO: No idea how or why this works right now. Figure out later
     JoystickButton leftButton = new JoystickButton(leftJoystick, 8);
     leftButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem));
 
