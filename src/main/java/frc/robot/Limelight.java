@@ -83,8 +83,20 @@ public class Limelight {
   public double getPipeline() {
     return getpipe.getDouble(0);
   }
+
   //FIXME: prob not going to work
   public double[] getTranslationRotation() {
-  return camtran.getDoubleArray(new double[5]);
+    return camtran.getDoubleArray(new double[5]);
+  }
+
+  public double getDistance() {
+    // d = (h2 - h1) / tan(a1+a2)
+    //TODO: get height
+    double h1 = 24.0;
+    double h2 = 85.5;
+    //TODO: get cam angle
+    double a1 = 0.0;
+    double a2 = getY();
+    return (h2 - h1) / Math.tan((a1 + a2) * Math.PI / 180.0);
   }
 }

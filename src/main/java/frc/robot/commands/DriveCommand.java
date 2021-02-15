@@ -5,10 +5,11 @@ import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveCommand extends CommandBase {
-  private final DriveSubsystem subsystem;
+  private final DriveSubsystem driveSubsystem;
+  private boolean lastgear;
 
   public DriveCommand(DriveSubsystem subsystem) {
-    this.subsystem = subsystem;
+    this.driveSubsystem = subsystem;
     addRequirements(subsystem);
   }
 
@@ -19,22 +20,32 @@ public class DriveCommand extends CommandBase {
 
   @Override
   public void execute() {
-    // double leftX = RobotContainer.leftJoystick.getX();
-    // double leftY = RobotContainer.leftJoystick.getY();
-    // double rightX = RobotContainer.rightJoystick.getX();
-    // double rightY = RobotContainer.rightJoystick.getY();
+    if (RobotContainer.rightJoystick.getRawButton(1)) {
+      driveSubsystem.shiftGear(true);
+      if (!lastgear) {
+        System.out.println("high gear");
+        lastgear = true;
+      }
+    } else {
+      driveSubsystem.shiftGear(false);
+      if (lastgear) {
+        System.out.println("low gear");
+        lastgear = false;
+      }
+    }
 
-    // subsystem.motorControl(
-    //   leftY - leftX - rightX + rightY,
-    //   leftY + leftX - rightX + rightY,
-    //   -leftY - leftX - rightX + rightY,  
-    //   -leftY + leftX - rightX + rightY
-    // );
+    double leftX = RobotContainer.leftJoystick.getRawAxis(1);
+    double leftY = RobotContainer.rightJoystick.getRawAxis(1);
+
+    driveSubsystem.tankDrive(leftX, leftY);
+
+
+    
   }
 
   @Override
   public void end(boolean interrupted) {
-    subsystem.stop();
+    driveSubsystem.stop();
   }
 
   @Override

@@ -53,6 +53,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //Attach a command to a button here. 
+    
     //TODO: No idea how or why this works right now. Figure out later
     JoystickButton leftButton = new JoystickButton(leftJoystick, 8);
     leftButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem));
