@@ -8,8 +8,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class Limelight {
-  private NetworkTable networkEntry = NetworkTableInstance.getDefault().getTable("limelight");
-
   /*
    * tv Whether the limelight has any valid targets (0 or 1) tx Horizontal Offset
    * From Crosshair To Target (LL1: -27 degrees to 27 degrees | LL2: -29.8 to
@@ -25,66 +23,65 @@ public class Limelight {
    * solution, 6 numbers: Translation (x,y,y) Rotation(pitch,yaw,roll)
    */
 
-  private double tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv").getDouble(0);
-  private double tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx").getDouble(0);
-  private double ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty").getDouble(0);
-  private double ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta").getDouble(0);
-  private double ts = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ts").getDouble(0);
-  private double tl = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl").getDouble(0);
-  private double tshort = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tshort").getDouble(0);
-  private double tlong = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tlong").getDouble(0);
-  private double thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor").getDouble(0);
-  private double tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert").getDouble(0);
-  private double getpipe = NetworkTableInstance.getDefault().getTable("limelight").getEntry("getpipe").getDouble(0);
-
-  private NetworkTableEntry camtran = networkEntry.getEntry("camtran");
+  private NetworkTableEntry tv = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tv");
+  private NetworkTableEntry tx = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tx");
+  private NetworkTableEntry ty = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ty");
+  private NetworkTableEntry ta = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ta");
+  private NetworkTableEntry ts = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ts");
+  private NetworkTableEntry tl = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tl");
+  private NetworkTableEntry tshort = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tshort");
+  private NetworkTableEntry tlong = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tlong");
+  private NetworkTableEntry thor = NetworkTableInstance.getDefault().getTable("limelight").getEntry("thor");
+  private NetworkTableEntry tvert = NetworkTableInstance.getDefault().getTable("limelight").getEntry("tvert");
+  private NetworkTableEntry getpipe = NetworkTableInstance.getDefault().getTable("limelight").getEntry("getpipe");
+  private NetworkTableEntry camtran = NetworkTableInstance.getDefault().getTable("limelight").getEntry("camtran");
 
   public Limelight() {
 
   }
 
   public double hasValidTargets() {
-    return tv;
+    return tv.getDouble(0);
   }
 
   public double getX() {
-    return tx;
+    return tx.getDouble(0);
   }
 
   public double getY() {
-    return ty;
+    return ty.getDouble(0);
   }
 
   public double getArea() {
-    return ta;
+    return ta.getDouble(0);
   }
 
   public double getSkew() {
-    return ts;
+    return ts.getDouble(0);
   }
 
   public double getLatency() {
-    return tl;
+    return tl.getDouble(0);
   }
 
   public double getShortSize() {
-    return tshort;
+    return tshort.getDouble(0);
   }
 
   public double getLongSize() {
-    return tlong;
+    return tlong.getDouble(0);
   }
 
   public double getHorizontalSize() {
-    return thor;
+    return thor.getDouble(0);
   }
 
   public double getVerticalSize() {
-    return tvert;
+    return tvert.getDouble(0);
   }
 
   public double getPipeline() {
-    return getpipe;
+    return getpipe.getDouble(0);
   }
   //FIXME: prob not going to work
   public double[] getTranslationRotation() {
