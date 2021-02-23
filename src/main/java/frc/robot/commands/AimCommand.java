@@ -73,7 +73,7 @@ public class AimCommand extends CommandBase {
 
     // servoSubsystem.servoControl(bottom, top);
     // driveSubsystem.turn(Math.pow(tx/30.0, 2) * Math.signum(tx));
-    driveSubsystem.motorControl(turn + distance, turn + distance, -turn + distance, -turn + distance);
+    driveSubsystem.tankDrive(turn + distance, -turn + distance);
   }
 
   @Override

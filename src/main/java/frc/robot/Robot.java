@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.DriveCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
   private Command autonomousCommand;
+  private DriveCommand driveCommand = new DriveCommand(RobotContainer.driveSubsystem);
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -58,6 +60,9 @@ public class Robot extends TimedRobot {
       autonomousCommand.cancel();
       autonomousCommand = null;
     }
+    if(driveCommand != null) {
+      driveCommand.cancel();
+    }
   }
 
   /**
@@ -82,6 +87,10 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopInit() {
     cancelEverything();
+    if (driveCommand != null) {
+      driveCommand.schedule();
+    }
+
   }
 
   /**

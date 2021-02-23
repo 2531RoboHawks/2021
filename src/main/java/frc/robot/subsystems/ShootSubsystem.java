@@ -1,17 +1,20 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.Talon;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 
 public class ShootSubsystem extends SubsystemBase {
-  private Talon shooter = new Talon(10);
+  private TalonSRX shooter = new TalonSRX(10);
 
   public ShootSubsystem() {
     
   }
 
   public void shoot(double pow) {
-    shooter.set(pow);
+    shooter.set(ControlMode.PercentOutput, pow);
   }
 
   public void stop() {

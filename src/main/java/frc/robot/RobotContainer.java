@@ -12,15 +12,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.AimCommand;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ServoSubSystem;
+import frc.robot.subsystems.ShootSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -32,6 +31,8 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 public class RobotContainer {
   public static DriveSubsystem driveSubsystem = new DriveSubsystem();
   public static ServoSubSystem servoSubsystem = new ServoSubSystem();
+  public static ShootSubsystem shootSubsystem = new ShootSubsystem();
+  public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   public static Joystick leftJoystick = new Joystick(1);
   public static Joystick rightJoystick = new Joystick(0);
@@ -55,9 +56,15 @@ public class RobotContainer {
     //Attach a command to a button here. 
     
     //TODO: No idea how or why this works right now. Figure out later
-    JoystickButton leftButton = new JoystickButton(leftJoystick, 8);
-    leftButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem));
+    JoystickButton aimButton = new JoystickButton(leftJoystick, 8);
+    JoystickButton revButton = new JoystickButton(leftJoystick, 3);
+    JoystickButton shootButton = new JoystickButton(leftJoystick, 1);
 
+    aimButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem));
+    revButton.whenHeld(new ShootCommand());
+    // shootButton.whenHeld(new IntakeCommand());
+    
+    intakeSubsystem.setDefaultCommand(new IntakeCommand(intakeSubsystem));
   }
 
   public Command getAutonomousCommand() {
