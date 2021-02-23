@@ -1,11 +1,10 @@
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class DriveSubsystem extends SubsystemBase {
   private TalonSRX leftMotor1 = new TalonSRX(5);
@@ -18,7 +17,7 @@ public class DriveSubsystem extends SubsystemBase {
   private Solenoid shifterLow = new Solenoid(1);
 
   public DriveSubsystem() {
-    
+  
   }
 
   public void tankDrive(double leftPower, double rightPower) {

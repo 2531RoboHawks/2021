@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.AimCommand;
+import frc.robot.commands.AutoShootCommandGroup;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.ShootCommand;
@@ -59,12 +60,17 @@ public class RobotContainer {
     JoystickButton aimButton = new JoystickButton(leftJoystick, 8);
     JoystickButton revButton = new JoystickButton(leftJoystick, 3);
     JoystickButton shootButton = new JoystickButton(leftJoystick, 1);
+    JoystickButton autoButton = new JoystickButton(leftJoystick, 2);
 
-    aimButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem));
-    revButton.whenHeld(new ShootCommand());
+    //aimButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem));
+    //revButton.whenHeld(new ShootCommand());
     // shootButton.whenHeld(new IntakeCommand());
     
-    intakeSubsystem.setDefaultCommand(new IntakeCommand(intakeSubsystem));
+    //intakeSubsystem.setDefaultCommand(new IntakeCommand(intakeSubsystem));
+
+    driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem));
+
+    autoButton.toggleWhenPressed(new AutoShootCommandGroup());
   }
 
   public Command getAutonomousCommand() {
