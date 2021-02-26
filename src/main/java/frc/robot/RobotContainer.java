@@ -70,10 +70,10 @@ public class RobotContainer {
 
     driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem));
 
-    autoButton.toggleWhenPressed(new AutoShootCommandGroup());
+    // autoButton.toggleWhenPressed(new AutoShootCommandGroup());
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return new AutoShootCommandGroup();
   }
 }

@@ -12,6 +12,12 @@ import frc.robot.commands.DriveCommand;
  * project.
  */
 public class Robot extends TimedRobot {
+  public static Robot robot;
+
+  public Robot() {
+    robot = this;
+  }
+
   private RobotContainer robotContainer;
   private Command autonomousCommand;
   private DriveCommand driveCommand = new DriveCommand(RobotContainer.driveSubsystem);
