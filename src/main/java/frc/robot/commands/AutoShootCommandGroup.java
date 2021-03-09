@@ -18,20 +18,18 @@ public class AutoShootCommandGroup extends SequentialCommandGroup {
 
     addCommands(new InstantCommand(() -> {
       RobotContainer.driveSubsystem.tankDrive(0.5, 0.5);
+      RobotContainer.shootSubsystem.shoot(0.85); // 20
+      RobotContainer.intakeSubsystem.intake(0.4, 0);
     }));
+
     addCommands(new WaitCommand(2.8));
 
     addCommands(new InstantCommand(() -> {
       RobotContainer.driveSubsystem.stop();
     }));
 
-    addCommands(new InstantCommand(() -> {
-      // RobotContainer.shootSubsystem.shoot(0.75); // 15
-      RobotContainer.shootSubsystem.shoot(0.85); // 20
-      RobotContainer.intakeSubsystem.intake(0.4, 0);
-      // RobotContainer.intakeSubsystem.intake(1, 0);
-    }));
-    addCommands(new WaitCommand(10));
+    
+    addCommands(new WaitCommand(4));
     // addCommands(new InstantCommand(() -> {
     //   RobotContainer.intakeSubsystem.intake(0, 0);
     // }));
@@ -39,10 +37,10 @@ public class AutoShootCommandGroup extends SequentialCommandGroup {
     
     for (int i = 0; i < 3; i++) {
       addCommands(new InstantCommand(() -> {
-        RobotContainer.intakeSubsystem.intake(-0.2, 0);
+        RobotContainer.intakeSubsystem.intake(-0.5, 0);
       }));
-      addCommands(new WaitCommand(0.4));
-      if (i != 2) {
+      addCommands(new WaitCommand(0.2));
+      if (i != 3) {
         // addCommands(new InstantCommand(() -> {
         //   RobotContainer.intakeSubsystem.intake(1, 0);
         // }));
@@ -50,9 +48,10 @@ public class AutoShootCommandGroup extends SequentialCommandGroup {
         addCommands(new InstantCommand(() -> {
           RobotContainer.intakeSubsystem.intake(0.4, 0);
         }));
-        addCommands(new WaitCommand(2));
+        addCommands(new WaitCommand(1.5));
       }
     }
+    addCommands(new WaitCommand(5));
     addCommands(new InstantCommand(() -> {
       end(false);
     }));

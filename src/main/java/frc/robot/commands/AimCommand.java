@@ -36,31 +36,32 @@ public class AimCommand extends CommandBase {
     System.out.println(String.format("tx: %f ty: %f ta: %f", tx, ty, ta));
 
     // FIXME: ta is often 0, unusable
-    // ty -= 15.0;
-    // ta -= 0.1;
+    ty -= 15.0;
+    ta -= 0.1;
     ta *= -1;
+    double MARGIN = 0;
 
-    // double bottom = servoSubsystem.getBottomServoAngle();
-    // double top = servoSubsystem.getTopServoAngle();
-    // if (tx > MARGIN) {
-    //   bottom += 0.01;
-    // } else if (tx < -MARGIN) {
-    //   bottom -= 0.01;
-    // }
+    double bottom = servoSubsystem.getBottomServoAngle();
+    double top = servoSubsystem.getTopServoAngle();
+    if (tx > MARGIN) {
+      bottom += 0.01;
+    } else if (tx < -MARGIN) {
+      bottom -= 0.01;
+    }
 
-    // if (ty > MARGIN) {
-    //   top -= 0.01;
-    // } else if (ty < -MARGIN) {
-    //   top += 0.01;
-    // }
+    if (ty > MARGIN) {
+      top -= 0.01;
+    } else if (ty < -MARGIN) {
+      top += 0.01;
+    }
 
-    // if (top > 0.75) {
-    //   top = 0.75;
-    // }
+    if (top > 0.75) {
+      top = 0.75;
+    }
 
-    double turn = Math.pow(tx/30.0, 2) * Math.signum(tx);
+    //double turn = Math.pow(tx/30.0, 2) * Math.signum(tx);
     // double distance = Math.pow(ty/30.0, 2) * Math.signum(ty);
-    double distance = Math.pow(ta, 2) * Math.signum(ta);
+    //double distance = Math.pow(ta, 2) * Math.signum(ta);
     // double distance = 0;
     // System.out.println(ta);
     // if (ta < 0.2) {
@@ -71,9 +72,9 @@ public class AimCommand extends CommandBase {
     //   distance = 0;
     // }
 
-    // servoSubsystem.servoControl(bottom, top);
+    servoSubsystem.servoControl(bottom, top);
     // driveSubsystem.turn(Math.pow(tx/30.0, 2) * Math.signum(tx));
-    driveSubsystem.tankDrive(turn + distance, -turn + distance);
+    //driveSubsystem.tankDrive(turn + distance, -turn + distance);
   }
 
   @Override
