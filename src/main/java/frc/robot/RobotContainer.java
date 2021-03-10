@@ -14,14 +14,13 @@ import frc.robot.commands.AimCommand;
 import frc.robot.commands.AutoShootCommandGroup;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.LLServoCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ServoSubSystem;
 import frc.robot.subsystems.ShootSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -61,30 +60,14 @@ public class RobotContainer {
     //TODO: No idea how or why this works right now. Figure out later
     JoystickButton aimButton = new JoystickButton(leftJoystick, 8);
     JoystickButton revButton = new JoystickButton(leftJoystick, 3);
-    JoystickButton shootButton = new JoystickButton(leftJoystick, 1);
-    JoystickButton autoButton = new JoystickButton(leftJoystick, 2);
 
-    JoystickButton limeLeft = new JoystickButton(rightJoystick, 4);
-    JoystickButton limeRight = new JoystickButton(rightJoystick, 5);
-    JoystickButton limeUp = new JoystickButton(rightJoystick, 3);
-    JoystickButton limeDown = new JoystickButton(rightJoystick, 2);
-
-    aimButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem));
-    //revButton.whenHeld(new ShootCommand());
-    // shootButton.whenHeld(new IntakeCommand(intakeSubsystem));
+    aimButton.toggleWhenPressed(new AimCommand(driveSubsystem, servoSubsystem))
+    .whenInactive(new LLServoCommand(servoSubsystem), true);
     
-    //intakeSubsystem.setDefaultCommand(new IntakeCommand(intakeSubsystem));
-
+    revButton.whenHeld(new ShootCommand());
+    
+    intakeSubsystem.setDefaultCommand(new IntakeCommand(intakeSubsystem));
     driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem));
-
-    // autoButton.toggleWhenPressed(new AutoShootCommandGroup());
-
-    //Continue this d
-    new InstantCommand(() -> {
-      int i = 0;
-      i+=1;
-
-    });
   }
 
   public Command getAutonomousCommand() {

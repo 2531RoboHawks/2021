@@ -35,18 +35,14 @@ public class AimCommand extends CommandBase {
     double ta = RobotContainer.limelight.getArea();
     System.out.println(String.format("tx: %f ty: %f ta: %f", tx, ty, ta));
 
-    // FIXME: ta is often 0, unusable
-    ty -= 15.0;
-    ta -= 0.1;
-    ta *= -1;
-    double MARGIN = 0;
-
+    double MARGIN = 0.01;
     double bottom = servoSubsystem.getBottomServoAngle();
     double top = servoSubsystem.getTopServoAngle();
+
     if (tx > MARGIN) {
-      bottom += 0.01;
-    } else if (tx < -MARGIN) {
       bottom -= 0.01;
+    } else if (tx < -MARGIN) {
+      bottom += 0.01;
     }
 
     if (ty > MARGIN) {
@@ -72,7 +68,8 @@ public class AimCommand extends CommandBase {
     //   distance = 0;
     // }
 
-    servoSubsystem.servoControl(bottom, top);
+    servoSubsystem.setBottomServo(bottom);
+    servoSubsystem.setTopServo(top);
     // driveSubsystem.turn(Math.pow(tx/30.0, 2) * Math.signum(tx));
     //driveSubsystem.tankDrive(turn + distance, -turn + distance);
   }
