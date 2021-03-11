@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ServoSubSystem extends SubsystemBase {
-  Servo topServo = new Servo(0);
-  Servo bottomServo = new Servo(1);
+  Servo bottomServo = new Servo(0);
+  Servo topServo = new Servo(1);
 
   /** Creates a new ServoSubSystem. */
   public ServoSubSystem() {

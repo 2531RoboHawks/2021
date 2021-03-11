@@ -35,15 +35,17 @@ public class LLServoCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(limeLeft.get()){
-      angleLR += 0.1;
-    } else if(limeRight.get()) {
-      angleLR -= 0.1;
-    } else if(limeUp.get()) {
-      angleUD += 0.1;
-    } else if(limeDown.get()) {
-      angleUD -= 0.1;
+    if(limeLeft.get() && angleLR < 1.0){
+      angleLR += 0.01;
+    } else if(limeRight.get() && angleLR > 0.0) {
+      angleLR -= 0.01;
+    } else if(limeUp.get() && angleUD < 1.0) {
+      angleUD += 0.01;
+    } else if(limeDown.get() && angleUD > 0.0) {
+      angleUD -= 0.01;
     }
+
+    
 
     servoSubsystem.setTopServo(angleUD);
     servoSubsystem.setBottomServo(angleLR);

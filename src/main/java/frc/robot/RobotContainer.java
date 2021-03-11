@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.AimCommand;
+import frc.robot.commands.AutoNavCommandGroup;
 import frc.robot.commands.AutoShootCommandGroup;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeCommand;
@@ -71,6 +72,6 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return new AutoShootCommandGroup();
+    return new AutoNavCommandGroup();
   }
 }

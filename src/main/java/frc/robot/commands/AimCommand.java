@@ -1,7 +1,5 @@
 package frc.robot.commands;
 
-import javax.naming.spi.DirStateFactory;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
@@ -11,6 +9,9 @@ public class AimCommand extends CommandBase {
   private final DriveSubsystem driveSubsystem;
   private final ServoSubSystem servoSubsystem;
 
+  double bottom = 0;
+  double top = 0;
+
   public AimCommand(DriveSubsystem subsystem, ServoSubSystem servoSubSystem) {
     this.driveSubsystem = subsystem;
     this.servoSubsystem = servoSubSystem;
@@ -19,7 +20,10 @@ public class AimCommand extends CommandBase {
   }
 
   @Override
-  public void initialize() {}
+  public void initialize() {
+    bottom = servoSubsystem.getBottomServoAngle();
+    top = servoSubsystem.getTopServoAngle();
+  }
 
   @Override
   public void execute() {
@@ -36,8 +40,8 @@ public class AimCommand extends CommandBase {
     System.out.println(String.format("tx: %f ty: %f ta: %f", tx, ty, ta));
 
     double MARGIN = 0.01;
-    double bottom = servoSubsystem.getBottomServoAngle();
-    double top = servoSubsystem.getTopServoAngle();
+    
+    //tx is between 
 
     if (tx > MARGIN) {
       bottom -= 0.01;
@@ -51,8 +55,11 @@ public class AimCommand extends CommandBase {
       top += 0.01;
     }
 
-    if (top > 0.75) {
-      top = 0.75;
+    // if (top > 0.9) {
+    //   top = 0.9;
+    // }
+    if (bottom > 0.9) {
+      bottom = 0.9;
     }
 
     //double turn = Math.pow(tx/30.0, 2) * Math.signum(tx);
