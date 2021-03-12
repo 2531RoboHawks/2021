@@ -12,6 +12,11 @@ public class AimCommand extends CommandBase {
   double bottom = 0;
   double top = 0;
 
+  double tx = RobotContainer.limelight.getX();
+  double ty = RobotContainer.limelight.getY();
+  double ta = RobotContainer.limelight.getArea();
+  double tv = RobotContainer.limelight.hasValidTargets();
+
   public AimCommand(DriveSubsystem subsystem, ServoSubSystem servoSubSystem) {
     this.driveSubsystem = subsystem;
     this.servoSubsystem = servoSubSystem;
@@ -34,37 +39,23 @@ public class AimCommand extends CommandBase {
     //   return;
     // }
 
-    double tx = RobotContainer.limelight.getX();
-    double ty = RobotContainer.limelight.getY();
-    double ta = RobotContainer.limelight.getArea();
-    System.out.println(String.format("tx: %f ty: %f ta: %f", tx, ty, ta));
+    System.out.println(String.format("tx: %f ty: %f ta: %f tv: %f", tx, ty, ta, tv));
 
-    double MARGIN = 0.01;
-    
-    //tx is between 
-
-    if (tx > MARGIN) {
+    double MARGIN = 0.1;
+    if (tx > MARGIN && bottom > 0.0) {
       bottom -= 0.01;
-    } else if (tx < -MARGIN) {
+    } else if (tx < -MARGIN && bottom < 1.0) {
       bottom += 0.01;
     }
 
-    if (ty > MARGIN) {
+    if (ty > MARGIN && top > 0.0) {
       top -= 0.01;
-    } else if (ty < -MARGIN) {
+    } else if (ty < -MARGIN && top < 1.0) {
       top += 0.01;
     }
-
-    // if (top > 0.9) {
-    //   top = 0.9;
-    // }
-    if (bottom > 0.9) {
-      bottom = 0.9;
-    }
-
-    //double turn = Math.pow(tx/30.0, 2) * Math.signum(tx);
+    
     // double distance = Math.pow(ty/30.0, 2) * Math.signum(ty);
-    //double distance = Math.pow(ta, 2) * Math.signum(ta);
+    // double distance = Math.pow(ta, 2) * Math.signum(ta);
     // double distance = 0;
     // System.out.println(ta);
     // if (ta < 0.2) {
@@ -75,10 +66,16 @@ public class AimCommand extends CommandBase {
     //   distance = 0;
     // }
 
-    servoSubsystem.setBottomServo(bottom);
     servoSubsystem.setTopServo(top);
-    // driveSubsystem.turn(Math.pow(tx/30.0, 2) * Math.signum(tx));
+    servoSubsystem.setBottomServo(bottom);
     //driveSubsystem.tankDrive(turn + distance, -turn + distance);
+  }
+
+  public void aimTarget() {
+    if(Math.abs(tx) > 0.1) {
+      double turn = Math.pow(tx/30.0, 2) * Math.signum(tx);
+      driveSubsystem.tankDrive(turn, -turn);
+    }
   }
 
   @Override
