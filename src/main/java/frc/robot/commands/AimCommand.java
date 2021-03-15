@@ -12,10 +12,10 @@ public class AimCommand extends CommandBase {
   double bottom = 0;
   double top = 0;
 
-  double tx = RobotContainer.limelight.getX();
-  double ty = RobotContainer.limelight.getY();
-  double ta = RobotContainer.limelight.getArea();
-  double tv = RobotContainer.limelight.hasValidTargets();
+  double tx;
+  double ty;
+  double ta;
+  double tv;
 
   public AimCommand(DriveSubsystem subsystem, ServoSubSystem servoSubSystem) {
     this.driveSubsystem = subsystem;
@@ -39,21 +39,29 @@ public class AimCommand extends CommandBase {
     //   return;
     // }
 
+    tx = RobotContainer.limelight.getX();
+    ty = RobotContainer.limelight.getY();
+    ta = RobotContainer.limelight.getArea();
+    tv = RobotContainer.limelight.hasValidTargets();
+
     System.out.println(String.format("tx: %f ty: %f ta: %f tv: %f", tx, ty, ta, tv));
 
-    double MARGIN = 0.1;
-    if (tx > MARGIN && bottom > 0.0) {
-      bottom -= 0.01;
-    } else if (tx < -MARGIN && bottom < 1.0) {
-      bottom += 0.01;
-    }
+    // double MARGIN = 2;
 
-    if (ty > MARGIN && top > 0.0) {
-      top -= 0.01;
-    } else if (ty < -MARGIN && top < 1.0) {
-      top += 0.01;
-    }
+    // if (tx > MARGIN && bottom > 0.0) {
+    //   bottom += 0.01;
+    // } else if (tx < -MARGIN && bottom < 1.0) {
+    //   bottom -= 0.01;
+    // }
+
+    // if (ty > MARGIN && top > 0.0) {
+    //   top -= 0.01;
+    // } else if (ty < -MARGIN && top < 1.0) {
+    //   top += 0.01;
+    // }
     
+    aimTarget();
+
     // double distance = Math.pow(ty/30.0, 2) * Math.signum(ty);
     // double distance = Math.pow(ta, 2) * Math.signum(ta);
     // double distance = 0;
@@ -72,9 +80,12 @@ public class AimCommand extends CommandBase {
   }
 
   public void aimTarget() {
-    if(Math.abs(tx) > 0.1) {
-      double turn = Math.pow(tx/30.0, 2) * Math.signum(tx);
-      driveSubsystem.tankDrive(turn, -turn);
+    tx = RobotContainer.limelight.getX();
+    if(Math.abs(tx) > 0.25) {
+      double turn = Math.min(0.75, (Math.abs(tx)/25)) * Math.signum(tx);
+      driveSubsystem.tankDrive(-turn, turn);
+    } else {
+      end(false);
     }
   }
 

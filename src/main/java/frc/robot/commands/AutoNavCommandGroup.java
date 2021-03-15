@@ -17,10 +17,31 @@ public class AutoNavCommandGroup extends SequentialCommandGroup {
 
   public void loopAround() {
     addCommands(new InstantCommand(() -> {
-      RobotContainer.driveSubsystem.tankDrive(0.25, 0.5);
+      RobotContainer.driveSubsystem.tankDrive(0.5, 0.9);
     }), 
-    new WaitCommand(1)
+    new WaitCommand(3),
+    new InstantCommand(() -> {end(false);})
     );
+
+    addCommands(new InstantCommand(() -> {
+      end(false);
+    }));
+  }
+
+  public void driveForTime(double speed, double time) {
+    addCommands(new InstantCommand(() -> {
+      RobotContainer.driveSubsystem.tankDrive(speed, speed);
+    }), 
     
+    new WaitCommand(time),
+
+    new InstantCommand(() -> {
+      end(false);
+    }));
+  }
+
+  @Override
+  public void end(boolean interrupted) {
+    RobotContainer.driveSubsystem.stop();
   }
 }
