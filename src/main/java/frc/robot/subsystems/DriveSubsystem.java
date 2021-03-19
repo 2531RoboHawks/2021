@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class DriveSubsystem extends SubsystemBase {
   private TalonSRX leftMotor1 = new TalonSRX(5);
@@ -33,6 +34,17 @@ public class DriveSubsystem extends SubsystemBase {
     tankDrive(leftPower, rightPower);
 
     
+  }
+
+  public boolean turnToAngle(double angleInDegrees) {
+    if(Math.abs(RobotContainer.gyro.getAngle() - angleInDegrees) > 1) {
+      double turn = Math.min(0.75, (Math.abs(RobotContainer.gyro.getAngle())/25)) * Math.signum(RobotContainer.gyro.getAngle());
+      tankDrive(-turn, turn);
+      return false;
+    } else {
+      stop();
+      return true;
+    }
   }
 
   public void shiftGear(boolean high) {

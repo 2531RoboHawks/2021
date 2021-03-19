@@ -42,6 +42,8 @@ public class RobotContainer {
 
   public static Limelight limelight = new Limelight();
 
+  public static Gyro gyro = new Gyro();
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
