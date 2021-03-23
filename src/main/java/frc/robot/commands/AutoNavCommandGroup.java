@@ -12,14 +12,19 @@ import frc.robot.RobotContainer;
 public class AutoNavCommandGroup extends SequentialCommandGroup {
 
   public AutoNavCommandGroup() {
-    turnToAngle(90);
+    driveForTime(-0.4, 5);
+    loopAround(-0.9, -0.4, 4.2);
+    rotateToAngle(0);
+    driveForTime(-0.4, 3);
+    loopAround(-0.4, -0.9, 4.2);
   }
 
-  public void loopAround() {
+  public void loopAround(double lSpeed, double rSpeed, double time) {
     addCommands(new InstantCommand(() -> {
-      RobotContainer.driveSubsystem.tankDrive(0.5, 0.9);
+      RobotContainer.driveSubsystem.tankDrive(lSpeed, rSpeed); 
+      
     }), 
-    new WaitCommand(3),
+    new WaitCommand(time),
     new InstantCommand(() -> {end(false);})
     );
 
@@ -40,10 +45,8 @@ public class AutoNavCommandGroup extends SequentialCommandGroup {
     }));
   }
 
-  public void turnToAngle(double angle) {
-    addCommands(new InstantCommand(() -> {
-      RobotContainer.driveSubsystem.turnToAngle(angle);
-    }));
+  public void rotateToAngle(double angle) {
+    addCommands(new RotateAngleCommand(angle));
   }
 
   @Override

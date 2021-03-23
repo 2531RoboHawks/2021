@@ -44,8 +44,8 @@ public class AimCommand extends CommandBase {
     ta = RobotContainer.limelight.getArea();
     tv = RobotContainer.limelight.hasValidTargets();
 
-    System.out.println(String.format("tx: %f ty: %f ta: %f tv: %f", tx, ty, ta, tv));
-
+    //System.out.println(String.format("tx: %f ty: %f ta: %f tv: %f", tx, ty, ta, tv));
+    System.out.println(RobotContainer.limelight.getDistance() + " feet");
     // double MARGIN = 2;
 
     // if (tx > MARGIN && bottom > 0.0) {

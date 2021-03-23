@@ -36,15 +36,22 @@ public class DriveSubsystem extends SubsystemBase {
     
   }
 
-  public boolean turnToAngle(double angleInDegrees) {
-    if(Math.abs(RobotContainer.gyro.getAngle() - angleInDegrees) > 1) {
-      double turn = Math.min(0.75, (Math.abs(RobotContainer.gyro.getAngle())/25)) * Math.signum(RobotContainer.gyro.getAngle());
-      tankDrive(-turn, turn);
-      return false;
-    } else {
-      stop();
-      return true;
-    }
+  double rotation = 0;
+  double threshold = 1 * (Math.PI/180);
+  
+  public boolean calculateRotateValue(double targetAngle) {
+      double error = targetAngle - RobotContainer.gyro.getAngle();
+      System.out.println("Error = " + error);
+      if(error > threshold) {
+          rotation = error;
+          arcadeDrive(0.5, Math.signum(rotation));
+          return false;
+      } else {
+          rotation = 0;
+          arcadeDrive(0, 0);
+          return true;
+      }
+      
   }
 
   public void shiftGear(boolean high) {

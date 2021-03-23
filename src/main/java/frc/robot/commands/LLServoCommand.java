@@ -49,6 +49,7 @@ public class LLServoCommand extends CommandBase {
 
     servoSubsystem.setTopServo(angleUD);
     servoSubsystem.setBottomServo(angleLR);
+    // System.out.println(servoSubsystem.getTopServoAngle());
 
   }
 

@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import frc.robot.subsystems.ServoSubSystem;
 
 public class Limelight {
   //Whether the limelight has any valid targets (0 or 1)
@@ -96,11 +97,11 @@ public class Limelight {
   public double getDistance() {
     // d = (h2 - h1) / tan(a1+a2)
     //TODO: get height
-    double h1 = 0.0;
+    double h1 = 3.125;
 
-    double h2 = 85.5;
+    double h2 = 7.125;
     //TODO: get cam angle
-    double a1 = 0.0;
+    double a1 = 0.0; //(RobotContainer.servoSubsystem.getTopServoAngle() - 0.74) * 360;
 
     double a2 = getY();
     return (h2 - h1) / Math.tan((a1 + a2) * Math.PI / 180.0);

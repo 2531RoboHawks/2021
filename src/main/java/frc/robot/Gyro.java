@@ -5,10 +5,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.SPI;
 
 /** Add your docs here. */
 public class Gyro {
-    public ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+    public ADXRS450_Gyro gyro = new ADXRS450_Gyro(SPI.Port.kOnboardCS1);
 
     public Gyro() {
 
@@ -25,4 +26,5 @@ public class Gyro {
     public double getRate() {
         return gyro.getRate();
     }
+
 }
