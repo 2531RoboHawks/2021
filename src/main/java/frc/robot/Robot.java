@@ -31,7 +31,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-    
+    double dpp = ((12.0 * Math.PI)/2048.0)/2;
+    RobotContainer.leftEncoder.setDistancePerPulse(dpp);
+    RobotContainer.rightEncoder.setDistancePerPulse(dpp); 
   }
 
   /**
@@ -77,7 +79,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    RobotContainer.gyro.initialize();
+    RobotContainer.leftEncoder.reset();
+    RobotContainer.rightEncoder.reset();
+
     cancelEverything();
     autonomousCommand = robotContainer.getAutonomousCommand();
     if (autonomousCommand != null) {
@@ -91,11 +95,14 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    System.out.println(RobotContainer.gyro.getAngle());
+    // System.out.println("[ " + RobotContainer.leftEncoder.getDistance() + " L ");
+    // System.out.println(RobotContainer.rightEncoder.getDistance() + "R]");
   }
 
   @Override
   public void teleopInit() {
+    RobotContainer.leftEncoder.reset();
+    RobotContainer.rightEncoder.reset();
     cancelEverything();
     if (driveCommand != null) {
       driveCommand.schedule();
@@ -108,6 +115,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    System.out.println("[" + Math.round(RobotContainer.leftEncoder.getDistance()) + ", " + Math.round(RobotContainer.rightEncoder.getDistance()) + "]");
 
   }
 

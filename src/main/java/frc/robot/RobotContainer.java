@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -42,6 +43,9 @@ public class RobotContainer {
   public static Limelight limelight = new Limelight();
 
   public static Gyro gyro = new Gyro();
+
+  public static Encoder leftEncoder = new Encoder(0, 1, true);
+  public static Encoder rightEncoder = new Encoder(2, 3, true);
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
