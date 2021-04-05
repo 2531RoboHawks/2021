@@ -12,8 +12,8 @@ import frc.robot.RobotContainer;
 public class AutoNavCommandGroup extends SequentialCommandGroup {
 
   public AutoNavCommandGroup() {
-    addCommands(new DriveDistanceCommand(182));
-    loopAround(-0.9, -0.4, 4.2);
+    // addCommands(new DriveDistanceCommand(182));
+    addCommands(new TurnToEncValCommand(1.5, 180.0, 10));
 
     // driveForTime(-0.4, 5);
     

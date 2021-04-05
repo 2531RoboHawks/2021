@@ -17,7 +17,7 @@ public class Robot extends TimedRobot {
   public Robot() {
     robot = this;
   }
-
+  public double runTime = 0;
   private RobotContainer robotContainer;
   private Command autonomousCommand;
   private DriveCommand driveCommand = new DriveCommand(RobotContainer.driveSubsystem);
@@ -95,6 +95,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    runTime += Robot.kDefaultPeriod;
     // System.out.println("[ " + RobotContainer.leftEncoder.getDistance() + " L ");
     // System.out.println(RobotContainer.rightEncoder.getDistance() + "R]");
   }
@@ -115,6 +116,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
+    runTime += Robot.kDefaultPeriod;
     System.out.println("[" + Math.round(RobotContainer.leftEncoder.getDistance()) + ", " + Math.round(RobotContainer.rightEncoder.getDistance()) + "]");
 
   }
@@ -130,5 +132,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+    runTime += Robot.kDefaultPeriod;
   }
 }

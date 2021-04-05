@@ -13,7 +13,6 @@ public class DriveDistanceCommand extends CommandBase {
   /** Creates a new DriveDistanceCommand. */
   public DriveDistanceCommand(double distance) {
     this.distance = distance;
-    addRequirements(RobotContainer.driveSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -26,7 +25,7 @@ public class DriveDistanceCommand extends CommandBase {
   public void execute() {
     boolean done = RobotContainer.driveSubsystem.driveForDist(distance);
     if(done) {
-      end(true);
+      finished = true;
     }
   }
 
@@ -34,7 +33,7 @@ public class DriveDistanceCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.driveSubsystem.stop();
-    finished = true;
+    
   }
 
   // Returns true when the command should end.

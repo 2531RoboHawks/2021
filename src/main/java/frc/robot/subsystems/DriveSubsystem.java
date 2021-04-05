@@ -23,7 +23,7 @@ public class DriveSubsystem extends SubsystemBase {
       }
 
   public void tankDrive(double leftPower, double rightPower) {
-    leftMotor1.set(ControlMode.MotionMagic, leftPower);
+    leftMotor1.set(ControlMode.PercentOutput, leftPower);
     leftMotor2.set(ControlMode.PercentOutput, leftPower);
     rightMotor1.set(ControlMode.PercentOutput, -rightPower);
     rightMotor2.set(ControlMode.PercentOutput, -rightPower);
